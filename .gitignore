@@ -1,3 +1,4 @@
 .idea/ 
 Mysql/ 
 Oracle/ 
+.gitignore
