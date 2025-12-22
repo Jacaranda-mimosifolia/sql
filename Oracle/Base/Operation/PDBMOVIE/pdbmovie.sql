@@ -1,0 +1,44 @@
+-- 一、用户操作
+-- 查看当前PDB
+SELECT SYS_CONTEXT ('USERENV', 'CON_NAME') FROM DUAL;
+
+-- 查看所有用户
+SELECT username FROM dba_users;
+
+-- 查看当前用户
+SELECT USER FROM dual;
+
+-- 查询用户权限
+SELECT * FROM user_sys_privs;
+
+-- 赋予用户权限
+GRANT CREATE SESSION TO CHEN;        -- 创建会话权限
+GRANT CREATE TABLESPACE TO CHEN;     -- 创建表空间权限
+GRANT CREATE TABLE TO CHEN;          -- 创建数据表权限
+GRANT CREATE VIEW TO CHEN;           -- 创建视图权限
+GRANT CREATE PROCEDURE TO CHEN;      -- 创建存储过程卡权限
+GRANT CONNECT to CHEN;               -- 连接权限
+GRANT RESOURCE to CHEN;              -- 执行权限
+
+-- 二、创建表空间
+-- 创建表空间
+CREATE TABLESPACE MOVIE
+    DATAFILE '/opt/oracle/oradata/ORCL/pdbmovie/movie01.dbf'
+    SIZE 100M
+    AUTOEXTEND ON NEXT 5M MAXSIZE UNLIMITED
+    EXTENT MANAGEMENT LOCAL
+    SEGMENT SPACE MANAGEMENT AUTO;
+
+-- 查看表空间
+SELECT * FROM DBA_TABLESPACES WHERE tablespace_name = 'MOVIE';
+
+-- 删除表空间
+DROP TABLESPACE MOVIE INCLUDING CONTENTS AND DATAFILES;
+
+-- 创建用户
+CREATE USER MOVIE IDENTIFIED BY PASSWORD DEFAULT TABLESPACE MOVIE;  -- 用户名:MOVIE,密码:PASSWORD,表空间:MOVIE
+GRANT CONNECT,RESOURCE TO MOVIE;
+GRANT DBA TO MOVIE;
+
+-- 删除用户
+DROP USER MOVIE CASCADE;
