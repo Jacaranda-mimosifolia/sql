@@ -15,7 +15,6 @@ VALUES (1, 1),
 # TRUNCATE TABLE account;
 # INSERT INTO account VALUES (1, 10), (3, 30), (5, 50);
 
-
 # 设置事务手动提交
 set @@autocommit = 0;
 # 设置事务隔离级别为rc
